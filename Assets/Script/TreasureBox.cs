@@ -12,6 +12,7 @@ public class TreasureBox : MonoBehaviour
     [SerializeField] int maxDialCount;
     [SerializeField]DialManager dialManager;
     [SerializeField] int[] musicNotes;//音符の番号
+    [SerializeField] GameObject musicHandsPrefab;
 
     void Start()
     {
@@ -37,10 +38,19 @@ public class TreasureBox : MonoBehaviour
             }
         }
     }
+    //宝箱開いたら音符ばらまく
+    public void Scatter_MusicNotes()
+    {
+        for (var i = 0; i < musicNotes.Length; i++)
+        {
+            var notes = Instantiate(musicHandsPrefab, transform.position, Quaternion.identity);
+            notes.GetComponent<MusicNote>().Number = musicNotes[i];
+            notes.GetComponent<MusicNote>().Init();
+        }
+    }
     //ダイアルのゲームが終わったら宝箱消す
     public void DestroyTreasureBox()
     {
         Destroy(gameObject);
     }
-    public int[] MusicNotes { get { return musicNotes; } }
 }

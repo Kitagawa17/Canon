@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class DialManager : MonoBehaviour
 {
-    [SerializeField] GameObject[] dials;
-    [SerializeField] GameObject miniGame;
+    [SerializeField] GameObject[] dials;//すべてのダイヤルのオブジェ
+    [SerializeField] GameObject miniGame;//ダイヤルゲーム画面
     [SerializeField] DialController[] dialController;
-    int[] dialsRotation=new int[5];
+    int[] dialsRotation=new int[5];//すべてのダイヤルの角度
     [SerializeField]PlayerController playerController;
     GameObject currentTreasureBox;
     bool isMove;
     int currentDialIndex=0;
     int maxDialCount;
+    int[] notes;
     void Update()
     {
         if (isMove)
@@ -21,14 +22,12 @@ public class DialManager : MonoBehaviour
             {
                 if (currentDialIndex < maxDialCount - 1)
                     currentDialIndex++;
-                Debug.Log(currentDialIndex);
 
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
                 if (currentDialIndex > 0)
                     currentDialIndex--;
-                Debug.Log(currentDialIndex);
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
@@ -69,8 +68,6 @@ public class DialManager : MonoBehaviour
     }
     void Check()//ダイアルがそろってるかチェック
     {
-        Debug.Log(dialsRotation[0]);
-        Debug.Log(dialsRotation[1]);
         bool check = true;
         int num = 0;
         for (var i = 0; i < maxDialCount; i++)
@@ -94,15 +91,16 @@ public class DialManager : MonoBehaviour
             miniGame.SetActive(false);
             StartCoroutine(wait());
 
-            //宝箱から音符もらう
-            int[] notes = currentTreasureBox.GetComponent<TreasureBox>().MusicNotes;
-            //もらった音符をプレイヤーに渡す
-            playerController.TreaureBox_MusicNotes(notes);
-            //宝箱消す
-            if (currentTreasureBox!=null)
+            if (currentTreasureBox != null)
+            {
+                //音符放出させる
+                currentTreasureBox.GetComponent<TreasureBox>().Scatter_MusicNotes();
+                //宝箱消す
                 currentTreasureBox.GetComponent<TreasureBox>().DestroyTreasureBox();
+            }
+
         }
-        
+
     }
     IEnumerator wait()//プレイヤー動かす
     {
@@ -114,4 +112,5 @@ public class DialManager : MonoBehaviour
     {
         set { currentTreasureBox = value; }
     }
+   
 }

@@ -20,7 +20,7 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-
+    //‰¹•„‚ÆÚG‚µ‚½‚çŒÄ‚Ño‚³‚ê‚Ä”Ô†Ši”[
     public void MusicNotes_Number(int num)
     {
         musicNotes[num] = true;
@@ -29,12 +29,5 @@ public class PlayerController : MonoBehaviour
     public bool IsMove
     {
         set { isMove = value; }
-    }
-    public void TreaureBox_MusicNotes(int[] notes)
-    {
-        foreach (var note in notes)
-        {
-            musicNotes[note] = true;
-        }
     }
 }

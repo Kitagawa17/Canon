@@ -6,6 +6,7 @@ public class DialController : MonoBehaviour
 {
     // Update is called once per frame
     int rotation;
+    [SerializeField] int dialNUmber;//é©êgÇÃÉ_ÉCÉÑÉãÇÃî‘çÜ
     public void RightTurn()
     {
         transform.Rotate(0, 0, 30);
@@ -24,7 +25,11 @@ public class DialController : MonoBehaviour
     }
     public void SetRandomRotation()
     {
-        int num = Random.Range(0, 12);
+        int num;
+        if (dialNUmber==0||dialNUmber==2||dialNUmber==4)
+            num = Random.Range(0, 6);
+        else
+            num = Random.Range(6, 12);
         rotation = num * 30;
         transform.Rotate(0, 0, num*30);
     }
