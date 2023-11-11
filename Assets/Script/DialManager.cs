@@ -9,7 +9,7 @@ public class DialManager : MonoBehaviour
     [SerializeField] DialController[] dialController;
     int[] dialsRotation=new int[5];
     [SerializeField]PlayerController playerController;
-    [SerializeField] GameObject currentTreasureBox;
+    GameObject currentTreasureBox;
     bool isMove;
     int currentDialIndex=0;
     int maxDialCount;
@@ -93,7 +93,13 @@ public class DialManager : MonoBehaviour
         {
             miniGame.SetActive(false);
             StartCoroutine(wait());
-            if(currentTreasureBox!=null)
+
+            //•ó” ‚©‚ç‰¹•„‚à‚ç‚¤
+            int[] notes = currentTreasureBox.GetComponent<TreasureBox>().MusicNotes;
+            //‚à‚ç‚Á‚½‰¹•„‚ğƒvƒŒƒCƒ„[‚É“n‚·
+            playerController.TreaureBox_MusicNotes(notes);
+            //•ó” Á‚·
+            if (currentTreasureBox!=null)
                 currentTreasureBox.GetComponent<TreasureBox>().DestroyTreasureBox();
         }
         
