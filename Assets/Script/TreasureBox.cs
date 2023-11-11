@@ -11,14 +11,13 @@ public class TreasureBox : MonoBehaviour
     [SerializeField] GameObject miniGame;
     [SerializeField] int maxDialCount;
     [SerializeField]DialManager dialManager;
+    [SerializeField] int[] musicNotes;//音符の番号
 
     void Start()
     {
         player = GameObject.Find("Player");
         playerController = player.GetComponent<PlayerController>();
     }
-
-    // Update is called once per frame
     void Update()
     {
         // プレイヤーの現在地を取得する
@@ -34,7 +33,14 @@ public class TreasureBox : MonoBehaviour
                 playerController.IsMove = false;
                 miniGame.SetActive(true);
                 dialManager.Dials_Set(maxDialCount);
+                dialManager.SetCurrentTreasureBox = gameObject;
             }
         }
     }
+    //ダイアルのゲームが終わったら宝箱消す
+    public void DestroyTreasureBox()
+    {
+        Destroy(gameObject);
+    }
+    public int[] MusicNotes { get { return musicNotes; } }
 }

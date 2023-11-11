@@ -9,6 +9,7 @@ public class DialManager : MonoBehaviour
     [SerializeField] DialController[] dialController;
     int[] dialsRotation=new int[5];
     [SerializeField]PlayerController playerController;
+    [SerializeField] GameObject currentTreasureBox;
     bool isMove;
     int currentDialIndex=0;
     int maxDialCount;
@@ -44,10 +45,6 @@ public class DialManager : MonoBehaviour
             }
         }
     }
-    void SetTrueRotation(int currentnum)
-    {
-
-    }
     public void Dials_Set(int count)//ダイアルの最大数設定.他、初期設定
     {
         maxDialCount = count;
@@ -70,7 +67,7 @@ public class DialManager : MonoBehaviour
             dials[i].SetActive(false);
         }
     }
-    void Check()
+    void Check()//ダイアルがそろってるかチェック
     {
         Debug.Log(dialsRotation[0]);
         Debug.Log(dialsRotation[1]);
@@ -96,6 +93,8 @@ public class DialManager : MonoBehaviour
         {
             miniGame.SetActive(false);
             StartCoroutine(wait());
+            if(currentTreasureBox!=null)
+                currentTreasureBox.GetComponent<TreasureBox>().DestroyTreasureBox();
         }
         
     }
@@ -104,5 +103,9 @@ public class DialManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         playerController.IsMove = true;
 
+    }
+    public GameObject SetCurrentTreasureBox
+    {
+        set { currentTreasureBox = value; }
     }
 }
