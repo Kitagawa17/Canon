@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float player_speed; //プレイヤーの移動速度
-    bool[] musicNotes = new bool[112];
+    bool[] musicNotes = new bool[32];//取得してる音符情報ここに保持
     bool isMove = true;//移動するかいなか
     void FixedUpdate()
     {
@@ -29,5 +29,12 @@ public class PlayerController : MonoBehaviour
     public bool IsMove
     {
         set { isMove = value; }
+    }
+    public void TreaureBox_MusicNotes(int[] notes)
+    {
+        foreach (var note in notes)
+        {
+            musicNotes[note] = true;
+        }
     }
 }
