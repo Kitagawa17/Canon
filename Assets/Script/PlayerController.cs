@@ -1,11 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
     [SerializeField] float player_speed; //ƒvƒŒƒCƒ„[‚ÌˆÚ“®‘¬“x
-    bool[] musicNotes = new bool[32];//æ“¾‚µ‚Ä‚é‰¹•„î•ñ‚±‚±‚É•Û
+    bool[] musicNotesNumber = new bool[32];//æ“¾‚µ‚Ä‚é‰¹•„î•ñ‚±‚±‚É•Û
+    [SerializeField]GameObject[] musicNotesGameObjects = new GameObject[32];//æ“¾‚µ‚Ä‚é‰¹•„î•ñ‚±‚±‚É•Û
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip audioClip;
+
     bool isMove = true;//ˆÚ“®‚·‚é‚©‚¢‚È‚©
     void FixedUpdate()
     {
@@ -20,14 +25,18 @@ public class PlayerController : MonoBehaviour
 
         }
     }
-    //‰¹•„‚ÆÚG‚µ‚½‚çŒÄ‚Ño‚³‚ê‚Ä”Ô†Ši”[
+    //‰¹•„‚ÆÚG‚µ‚½‚çŒÄ‚Ño‚³‚ê‚Ä”Ô†Ši”[,‰¹•„•\¦
     public void MusicNotes_Number(int num)
     {
-        musicNotes[num] = true;
+        audioSource.PlayOneShot(audioClip);
+        musicNotesNumber[num] = true;
+        musicNotesGameObjects[num].GetComponent<Image>().enabled=true;
+        musicNotesGameObjects[num].GetComponent<BoxCollider2D>().enabled=true;
         Debug.Log(num);
     }
     public bool IsMove
     {
         set { isMove = value; }
     }
+    public bool[] MusicNotesNumber { get { return musicNotesNumber; } }
 }

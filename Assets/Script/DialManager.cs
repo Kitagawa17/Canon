@@ -9,6 +9,10 @@ public class DialManager : MonoBehaviour
     [SerializeField] DialController[] dialController;
     int[] dialsRotation=new int[5];//すべてのダイヤルの角度
     [SerializeField]PlayerController playerController;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip audioClip;
+    [SerializeField] AudioClip audioClip1;
+
     GameObject currentTreasureBox;
     bool isMove;
     int currentDialIndex=0;
@@ -31,6 +35,9 @@ public class DialManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.D))
             {
+                //効果音
+                audioSource.PlayOneShot(audioClip);
+
                 dialController[currentDialIndex].RightTurn();
 
                 dialsRotation[currentDialIndex] = dialController[currentDialIndex].GetDialRotation();
@@ -38,6 +45,9 @@ public class DialManager : MonoBehaviour
             }
             if (Input.GetKeyDown(KeyCode.A))
             {
+                //効果音
+                audioSource.PlayOneShot(audioClip);
+
                 dialController[currentDialIndex].LeftTurn();
                 dialsRotation[currentDialIndex] = dialController[currentDialIndex].GetDialRotation();
                 Check();
@@ -88,9 +98,10 @@ public class DialManager : MonoBehaviour
         }
         if (check)//終了時の処理
         {
+            audioSource.PlayOneShot(audioClip1);
             miniGame.SetActive(false);
             StartCoroutine(wait());
-
+            isMove = false;
             if (currentTreasureBox != null)
             {
                 //音符放出させる

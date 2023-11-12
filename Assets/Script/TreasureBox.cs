@@ -13,6 +13,10 @@ public class TreasureBox : MonoBehaviour
     [SerializeField]DialManager dialManager;
     [SerializeField] int[] musicNotes;//音符の番号
     [SerializeField] GameObject musicHandsPrefab;
+    [SerializeField] AudioSource audioSource;
+    [SerializeField] AudioClip audioClip;
+    [SerializeField] GameObject aftertreasureBox;
+    [SerializeField] GameObject white;
 
     void Start()
     {
@@ -29,8 +33,10 @@ public class TreasureBox : MonoBehaviour
         // プレイヤーと宝石の距離が近づいた場合
         if (distance < reactionDistance)
         {
-            if (Input.GetKeyDown(KeyCode.F))
+            if (Input.GetKeyDown(KeyCode.Space))
             {
+                white.SetActive(false);
+                audioSource.PlayOneShot(audioClip);
                 playerController.IsMove = false;
                 miniGame.SetActive(true);
                 dialManager.Dials_Set(maxDialCount);
@@ -51,6 +57,8 @@ public class TreasureBox : MonoBehaviour
     //ダイアルのゲームが終わったら宝箱消す
     public void DestroyTreasureBox()
     {
+        white.SetActive(true);
+        Instantiate(aftertreasureBox, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 }
