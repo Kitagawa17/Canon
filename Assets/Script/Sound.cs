@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Sound : MonoBehaviour
 {
+    [SerializeField] AudioClip[] musics = new AudioClip[32];
+    [SerializeField] AudioSource audioSource;
     void Start()
     {
         
@@ -17,5 +19,7 @@ public class Sound : MonoBehaviour
     public void  SourceNumber(int num)
     {
         //Ç±Ç±Ç≈ÇªÇÃî‘çÜÇÃâπåπñ¬ÇÁÇ∑
+        audioSource.PlayOneShot(musics[num]);
+        Debug.Log(num);
     }
 }
