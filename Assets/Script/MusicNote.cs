@@ -14,7 +14,7 @@ public class MusicNote : MonoBehaviour
     Vector3 direction; // U‚ç‚Î‚é‚Ìis•ûŒü
     float speed; // U‚ç‚Î‚é‚Ì‘¬‚³
     [SerializeField] float brake = 0.1f; // U‚ç‚Î‚é‚ÌŒ¸‘¬—ÊA”’l‚ª¬‚³‚¢‚Ù‚Ç‚·‚®Œ¸‘¬‚·‚é
-
+    [SerializeField] GameObject effect;
 
     private void Start()
     {
@@ -74,6 +74,8 @@ public class MusicNote : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Instantiate(effect, transform.position, Quaternion.identity);
+
             playerController.MusicNotes_Number(number);
             Destroy(gameObject);
         }

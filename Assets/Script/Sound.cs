@@ -8,7 +8,6 @@ public class Sound : MonoBehaviour
     [SerializeField] AudioSource audioSource;
     void Start()
     {
-        
     }
 
     // Update is called once per frame
